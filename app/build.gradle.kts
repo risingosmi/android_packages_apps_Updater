@@ -81,7 +81,7 @@ android {
             }
         }
     }
-    namespace = "org.lineageos.updater"
+    namespace = "com.rising.updater"
 }
 
 dependencies {
