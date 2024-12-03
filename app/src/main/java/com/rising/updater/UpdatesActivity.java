@@ -104,6 +104,8 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
     private CircularProgressIndicator progressDownload;
     private CircularProgressIndicator progressLocalUpdate;
 
+    private RandomMessageTextView noUpdatesTextView;
+
     private final ActivityResultLauncher<Intent> mExportUpdate = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -247,6 +249,7 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
 
         maybeShowWelcomeMessage();
 
+        noUpdatesTextView = findViewById(R.id.no_updates_text);
         FloatingActionButton fabRefresh = findViewById(R.id.fab_refresh);
         fabRefresh.setOnClickListener(view -> {
             fabRefresh.performHapticFeedback(
@@ -254,6 +257,20 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                     HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
             );
             downloadUpdatesList(true);
+            if (noUpdatesTextView != null && noUpdatesTextView.getVisibility() == View.VISIBLE) {
+                noUpdatesTextView.animate()
+                    .alpha(0f)
+                    .setDuration(200)
+                    .withEndAction(() -> {
+                        noUpdatesTextView.updateRandomMessage();
+                        noUpdatesTextView.setAlpha(0f);
+                        noUpdatesTextView.animate()
+                            .alpha(1f)
+                            .setDuration(200)
+                            .start();
+                    })
+                    .start();
+            }
         });
         FloatingActionButton fabLocalUpdate = findViewById(R.id.fab_local_update);
         fabLocalUpdate.setOnClickListener(view -> {
@@ -435,10 +452,16 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         if (sortedUpdates.isEmpty()) {
             findViewById(R.id.no_new_updates_view).setVisibility(View.VISIBLE);
             findViewById(R.id.recycler_view).setVisibility(View.GONE);
+            if (noUpdatesTextView != null) {
+                noUpdatesTextView.setVisibility(View.VISIBLE);
+            }
         } else {
             findViewById(R.id.no_new_updates_view).setVisibility(View.GONE);
             findViewById(R.id.recycler_view).setVisibility(View.VISIBLE);
             sortedUpdates.sort((u1, u2) -> Long.compare(u2.getTimestamp(), u1.getTimestamp()));
+            if (noUpdatesTextView != null) {
+                noUpdatesTextView.setVisibility(View.GONE);
+            }
             for (UpdateInfo update : sortedUpdates) {
                 updateIds.add(update.getDownloadId());
             }
