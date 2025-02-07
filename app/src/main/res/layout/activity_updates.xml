@@ -64,8 +64,8 @@
                     android:fontFamily="@*android:string/config_headlineFontFamily"
                     android:paddingBottom="16dp"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="56sp"
-                    tools:text="RisingOS_Revived\n20"/>
+                    android:textSize="34sp"
+                    tools:text="RisingOS Revived\n20"/>
 
                 <TextView
                     android:id="@+id/header_build_version"
