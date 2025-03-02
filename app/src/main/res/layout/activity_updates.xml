@@ -15,7 +15,7 @@
         android:fitsSystemWindows="true"
         android:outlineAmbientShadowColor="@android:color/transparent"
         android:outlineSpotShadowColor="@android:color/transparent"
-        android:background="?android:attr/colorPrimary"
+        android:background="@*android:color/transparent"
         android:theme="@style/Theme.CollapsingToolbar.Settings">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -238,8 +238,8 @@
             android:layout_margin="4dp"
             android:contentDescription="@string/menu_refresh"
             android:src="@drawable/ic_menu_refresh"
-            app:backgroundTint="?android:attr/colorAccent"
-            app:tint="@*android:color/white"
+            app:iconTint="@color/settingslib_btn_colored_text_material"
+            app:backgroundTint="@color/settingslib_btn_colored_background_material"
             app:elevation="0dp"
             app:useCompatPadding="false"/>
     </FrameLayout>
@@ -270,8 +270,8 @@
             android:layout_margin="4dp"
             android:contentDescription="@string/local_update_import"
             android:src="@drawable/ic_local_update"
-            app:backgroundTint="?android:attr/colorAccent"
-            app:tint="@*android:color/white"
+            app:iconTint="@color/settingslib_btn_colored_text_material"
+            app:backgroundTint="@color/settingslib_btn_colored_background_material"
             app:elevation="0dp"
             app:useCompatPadding="false"/>
     </FrameLayout>
